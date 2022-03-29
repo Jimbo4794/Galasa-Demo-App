@@ -1,0 +1,45 @@
+apiVersion: v1alpha
+kind: galasa.dev/testPortfolio
+metadata:
+  name: adhoc
+classes:
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest10
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest8
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest5
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest4
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest1
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest3
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest2
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest6
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest9
+    stream: SHARE
+    overrides: {}
+  - bundle: dev.galasa.share.demo.tests
+    class: dev.galasa.share.demo.tests.DummyTest7
+    stream: SHARE
+    overrides: {}

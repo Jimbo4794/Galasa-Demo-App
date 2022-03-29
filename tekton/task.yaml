@@ -1,0 +1,29 @@
+#
+# Copyright contributors to the Galasa project 
+#
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: run-regression
+  namespace: jdavies47
+spec:
+  workspaces:
+  - name: git-workspace
+    optional: false
+    mountpath: /workspace/git
+  params:
+  - name: portfolio
+    type: string
+# Single step task. Uses a image called kaniko to build docker images inside a kuberentes pod  
+  steps:
+  - name: docker-build
+    workingDir: /workspace/git/Galasa-Demo-App
+    image: harbor-cicsk8s.hursley.ibm.com/jdavies47/galasactl
+    command:
+    - galasactl
+    - runs
+    - submit
+    - --bootstrap
+    - http://cicsk8sm.hursley.ibm.com:30162/bootstrap
+    - --portfolio
+    - $(params.portfolio)

@@ -1,0 +1,47 @@
+#
+# Copyright contributors to the Galasa project 
+apiVersion: tekton.dev/v1alpha1
+kind: SCMPoll
+metadata:
+  name: demo-pr-poll
+  namespace: jdavies47
+spec:
+  metadata:
+    name: demo-pr-poll
+  description: Polls for PRs
+  pollFrequency: 10
+  tidy: true
+  concurrentPipelines: false
+  repositories:
+    - name: Demo
+      type: github-pr
+      serviceAccountName: poll-sa
+      params:
+      - name: url
+        value: https://api.github.com/repos/Jimbo4794/Galasa-Demo-App
+      - name: rebuildString
+        value: "rebuild"
+      - name: approvalString
+        value: "approved"
+  pipelineRunSpec:
+    params:
+    - name: portfolio
+      value: galasa/my-app-core-regression.yaml
+    - name: refspec
+      value: $(Demo.refSpec)
+    pipelineRef:
+      name: github-pr-pipeline
+    serviceAccountName: demo-build-bot
+    podTemplate:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+    workspaces:
+    - name: git-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+          storageClassName: longhorn-temp

@@ -1,0 +1,46 @@
+#
+# Copyright contributors to the Galasa project 
+# 
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: github-pr-pipeline
+  namespace: jdavies47
+spec:
+  workspaces:
+  - name: git-workspace
+    optional: false
+  params:
+  - name: portfolio
+    type: string
+  - name: refspec
+    type: string
+  tasks:
+  - name: clone-galasa-demo-app
+    taskRef: 
+      name: git-clone
+    params:
+    - name: url
+      value: https://github.com/Jimbo4794/Galasa-Demo-App
+    - name: revision
+      value: main
+    - name: refspec
+      value: $(params.refspec)
+    - name: depth
+      value: "99999999"
+    - name: subdirectory
+      value: Galasa-Demo-App
+    workspaces:
+     - name: output
+       workspace: git-workspace
+  - name: galasa-test-submit
+    taskRef:
+      name: run-regression
+    runAfter:
+    - clone-galasa-demo-app
+    params:
+    - name: portfolio
+      value: $(params.portfolio)
+    workspaces:
+     - name: git-workspace
+       workspace: git-workspace

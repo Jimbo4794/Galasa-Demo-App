@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: demo-build-bot
+  namespace: jdavies47
+secrets:
+  - name: github-ssh-auth
